@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="EUC-KR">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날씨 테이블</title>
+</head>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="c3.min.js"></script>
+<link href="c3.css" rel="stylesheet">
+
+
+<body>
+    <div>
+    <table id="weatherList" border="1">
+        <th>  </th>
+        <th>온도</th>
+        <th>습도</th>
+
+        
+        <tr><!-- 첫번째 줄 시작 -->
+            <td>1월</td>
+            <td><input type = "label" id='1md' onchange='saveData1(); reDraw();' style="border:0"></input></td>
+            <td><label ><input id="1mh" onchange='saveDataH1(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 첫번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>2월 </td>
+            <td><label ><input id="2md" onchange='saveData2(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="2mh" onchange='saveDataH2(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>3월</td>
+            <td><label ><input id="3md" onchange='saveData3(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="3mh" onchange='saveDataH3(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>4월</td>
+            <td><label ><input id="4md" onchange='saveData4(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="4mh" onchange='saveDataH4(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>5월</td>
+            <td><label ><input id="5md" onchange='saveData5(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="5mh" onchange='saveDataH5(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>6월</td>
+            <td><label ><input id="6md" onchange='saveData6(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="6mh" onchange='saveDataH6(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>7월</td>
+            <td><label ><input id="7md" onchange='saveData7(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="7mh" onchange='saveDataH7(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>8월</td>
+            <td><label ><input id="8md" onchange='saveData8(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="8mh" onchange='saveDataH8(); reDraw();'style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>9월</td>
+            <td><label ><input id="9md" onchange='saveData9(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="9mh" onchange='saveDataH9(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>10월</td>
+            <td><label ><input id="10md" onchange='saveData10(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="10mh" onchange='saveDataH10(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>11월</td>
+            <td><label ><input id="11md" onchange='saveData11(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="11mh" onchange='saveDataH11(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        <tr><!-- 두번째 줄 시작 -->
+            <td>12월</td>
+            <td><label ><input id="12md" onchange='saveData12(); reDraw();' style="border:0"> </input></label></td>
+            <td><label ><input id="12mh" onchange='saveDataH12(); reDraw();' style="border:0"> </input></label></td>
+        </tr><!-- 두번째 줄 끝 -->
+        </table>
+
+<div id="chart"></div> 
+</div>
+</body>
+<script>
+
+
+
+var tem  = [0,0,0,0,0,0,0,0,0,0,0,0];
+var humi = [0,0,0,0,0,0,0,0,0,0,0,0];
+var month = [];
+
+
+
+//온도 넣기
+function saveData1()  {
+    var value1 = document.getElementById('1md').value;
+    tem.splice(1,1,value1)
+    month.push(1)
+}
+function saveData2()  {
+    var value1 = document.getElementById('2md').value;
+    tem.splice(2,1,value1)
+    month.push(2)
+}
+function saveData3()  {
+    var value1 = document.getElementById('3md').value;
+    tem.splice(3,1,value1)
+    month.push(3)
+}
+function saveData4()  {
+    var value1 = document.getElementById('4md').value;
+    tem.splice(4,1,value1)
+    month.push(4)
+}
+function saveData5()  {
+    var value1 = document.getElementById('5md').value;
+    tem.splice(5,1,value1)
+    month.push(5)
+}
+function saveData6()  {
+    var value1 = document.getElementById('6md').value;
+    tem.splice(6,1,value1)
+    month.push(6)
+}
+function saveData7()  {
+    var value1 = document.getElementById('7md').value;
+    tem.splice(7,1,value1)
+    month.push(7)
+}
+function saveData8()  {
+    var value1 = document.getElementById('8md').value;
+    tem.splice(8,1,value1)
+    month.push(8)
+}
+function saveData9()  {
+    var value1 = document.getElementById('9md').value;
+    tem.splice(9,1,value1)
+    month.push(9)
+}
+function saveData10()  {
+    var value1 = document.getElementById('10md').value;
+    tem.splice(10,1,value1)
+    month.push(10)
+}
+function saveData11()  {
+    var value1 = document.getElementById('11md').value;
+    tem.splice(11,1,value1)
+    month.push(11)
+}
+function saveData12()  {
+    var value1 = document.getElementById('12md').value;
+    tem.splice(12,1,value1)
+    month.push(12)
+}
+
+
+//습도 넣기
+function saveDataH1()  {
+    var value1 = document.getElementById('1mh').value;
+    humi.splice(1,1,value1)
+    month.push(1)
+}
+
+function saveDataH2()  {
+    var value1 = document.getElementById('2mh').value;
+    humi.splice(2,1,value1)
+    month.push
+}
+
+function saveDataH3()  {
+    var value1 = document.getElementById('3mh').value;
+    humi.splice(3,1,value1)
+    month.push
+}
+
+function saveDataH4()  {
+    var value1 = document.getElementById('4mh').value;
+    humi.splice(4,1,value1)
+    month.push
+}
+
+function saveDataH5()  {
+    var value1 = document.getElementById('5mh').value;
+    humi.splice(5,1,value1)
+    month.push
+}
+
+function saveDataH6()  {
+    var value1 = document.getElementById('6mh').value;
+    humi.splice(6,1,value1)
+    month.push
+}
+
+function saveDataH7()  {
+    var value1 = document.getElementById('7mh').value;
+    humi.splice(7,1,value1)
+    month.push
+}
+
+function saveDataH8()  {
+    var value1 = document.getElementById('8mh').value;
+    humi.splice(8,1,value1)
+    month.push
+}
+
+function saveDataH9()  {
+    var value1 = document.getElementById('9mh').value;
+    humi.splice(9,1,value1)
+    month.push
+}
+
+function saveDataH10()  {
+    var value1 = document.getElementById('10mh').value;
+    humi.splice(10,1,value1)
+    month.push
+}
+
+function saveDataH11()  {
+    var value1 = document.getElementById('11mh').value;
+    humi.splice(11,1,value1)
+    month.push
+}
+
+function saveDataH12()  {
+    var value1 = document.getElementById('12mh').value;
+    humi.splice(12,1,value1)
+    month.push
+}
+
+tem.unshift('기온')
+humi.unshift('습도')
+
+var tList = []
+        for(var i = 1; i<13; i++){
+            
+            var tem_val = tem[i]
+            var humi_val =  humi[i]
+            var month_val = month[i]
+            
+            tList.push({달: month_val, 온도  : tem[i], 습도  : humi[i]})
+
+        }
+    
+
+        var chart = c3.generate({
+        
+        bindto: '#chart',
+        data: {
+            x: 'x',
+        columns: [
+            ['x', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            tem,
+            humi
+        ],
+        
+        axes: {
+            data2: 'y2'
+        }
+        },
+        axis: {
+        y: {
+            label: { // ADD
+            text: '평균 기온',
+            position: 'outer-middle'
+            }
+      },
+      y2: {
+            show: true,
+            label: { // ADD
+            text: '평균 습도',
+            position: 'outer-middle'
+        }
+      }
+
+      
+    }
+    
+    });
+   
+   
+    function reDraw() {
+        
+        var chart = c3.generate({
+        
+        bindto: '#chart',
+        data: {
+            x: 'x',
+        columns: [
+            ['x', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            tem,
+            humi
+        ],
+        
+        axes: {
+            data2: 'y2'
+        }
+        },
+        axis: {
+        y: {
+            label: { // ADD
+            text: '평균 기온',
+            position: 'outer-middle'
+            }
+      },
+      y2: {
+            show: true,
+            label: { // ADD
+            text: '평균 습도',
+            position: 'outer-middle'
+        }
+      }
+
+      
+    }
+    });
+
+    
+
+    }  
+    
+    
+    function randomButton () {
+
+            tem  = [];
+            humi = [];
+            month = [];
+
+        for(var i = 1; i<13; i++){
+            var num = Math.floor(Math.random() * 40) + 1;
+            tem.push(num);
+        }
+        
+
+        for(var i = 1; i<13; i++){
+            var num = Math.floor(Math.random() * 100) + 1;
+            humi.push(num);
+        }
+        
+        for(var i = 1; i<13; i++){
+            var num = i + '월';
+            month.push(num);
+        }
+     
+
+        tem.unshift('기온')
+        humi.unshift('습도')
+        month.unshift('  ')
+
+        var tList = []
+        for(var i = 1; i<13; i++){
+            
+            var tem_val = tem[i]
+            var humi_val =  humi[i]
+            var month_val = month[i]
+            
+            tList.push({달: month_val, 온도  : tem[i], 습도  : humi[i]})
+        }
+
+            var tem1    
+
+
+        var chart = c3.generate({
+        
+        bindto: '#chart',
+        data: {
+            x: 'x',
+        columns: [
+            ['x', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            tem,
+            humi
+        ],
+        
+        axes: {
+            data2: 'y2'
+        }
+        },
+        axis: {
+        y: {
+            label: { // ADD
+            text: '평균 기온',
+            position: 'outer-middle'
+            }
+      },
+      y2: {
+            show: true,
+            label: { // ADD
+            text: '평균 습도',
+            position: 'outer-middle'
+        }
+      }
+      
+      
+    }
+
+    
+    });
+    
+        let wList = document.getElementById('weatherList');
+
+        //온도 
+        for(var i = 1; wList.rows.length; i++ ) {
+            //온도
+            document.getElementById("weatherList").getElementsByTagName("tr")[i].getElementsByTagName("td")[1].innerHTML = tem[i]
+            //습도
+            document.getElementById("weatherList").getElementsByTagName("tr")[i].getElementsByTagName("td")[2].innerHTML = humi[i]
+        }
+        
+       
+
+    }
+        </script>      
+    
+    </br>
+    </br>
+    <button type="button" onClick="randomButton()">Random</button>    
+
+
+    </body>
+</html>
+        
+
+</script>
+</html>
